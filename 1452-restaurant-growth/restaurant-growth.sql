@@ -1,5 +1,5 @@
 # Write your MySQL query statement below
-select t.visited_on as visited_on, t.amount as amount, t.average_amount as average_amount
+select visited_on, amount, average_amount
 from
 (select visited_on, sum(sum(amount)) over (order by visited_on rows between 6 preceding and current row) as amount,
 round(AVG(sum(amount)) OVER (ORDER BY visited_on ROWS BETWEEN 6 PRECEDING AND CURRENT ROW),2) as average_amount
