@@ -1,8 +1,11 @@
 # Write your MySQL query statement below
-SELECT id,
-case 
-    when id%2=1 THEN LEAD(student,1,student) OVER(order by id)
-    when id%2=0 THEN LAG(student,1,student) OVER(order by id)
-END as student
+select id, 
+CASE 
+    When id%2=1 AND id <> (SELECT MAX(id) FROM Seat)
+        THEN LEAD(student) over (order by id)
+    when id%2=0
+        THEN LAG(student) over (ORDER BY id)
+    ELSE student
+END AS student
 from Seat
-order by id
+Order by id;
